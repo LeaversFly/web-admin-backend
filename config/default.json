@@ -1,0 +1,29 @@
+{
+    "port": 8000,
+    "serviceName": "nacos's server name",
+    "DEBUG": false,
+    "env": "dev",
+    "ignorePath": [
+        "/favicon.ico"
+    ],
+    "db_config": {
+        "dev": {
+            "protocol": "mysql",
+            "host": "127.0.0.1",
+            "database": "",
+            "user": "root",
+            "password": "123456",
+            "port": 3306,
+            "connectionLimit": 100
+        },
+        "prod": {
+            "protocol": "mysql",
+            "host": "服务器的mysql地址",
+            "database": "数据库可选",
+            "user": "账号",
+            "password": "密码",
+            "port": 3306,
+            "connectionLimit": 300
+        }
+    }
+}
