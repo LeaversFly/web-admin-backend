@@ -1,5 +1,5 @@
 import Utils from "./Utils";
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
 const config = Utils.getInstance().getConfig<object>("db_config") as object;
 

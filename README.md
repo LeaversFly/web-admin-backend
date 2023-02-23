@@ -5,7 +5,6 @@ middleware -> routes(api) —> service —> mysql
 
 代码结构:
 -config # 配置目录
--db # 数据库模型层
 -src 
     -common # 公共类目录 *
         -Result.tx # 统一返回类型
