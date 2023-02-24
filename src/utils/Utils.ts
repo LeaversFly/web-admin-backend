@@ -1,9 +1,5 @@
 import config from 'config';
 
-const REGEXP = {
-    Mail: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
-}
-
 class Utils {
     private static instance: Utils;
     private randomString = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
@@ -52,30 +48,6 @@ class Utils {
             result[value] = data[key];
         }
         return result;
-    }
-
-    public getRandomVerfiyCode(len = 8) {
-        if (len <= 0) {
-            len = 6;
-        }
-        let str = "";
-        const randomStrLength = this.randomString.length;
-        for (let i = 0; i < len; i++) {
-            let randomIndex = Math.floor(Math.random() * (randomStrLength - 1));
-            if (i % 2 === 0) {
-                randomIndex = - randomIndex;
-            }
-            str += this.randomString.at(randomIndex);
-        }
-        return str;
-    }
-
-    // 正则表达式检查邮箱是否合法
-    public static isMail(mail: string) {
-        if (!mail) {
-            return false;
-        }
-        return REGEXP.Mail.test(mail);
     }
 
     private constructor() {
