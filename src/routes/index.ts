@@ -1,5 +1,6 @@
 import { Express, Router, Request, Response } from "express";
 import user from './user'
+import file from './file'
 
 
 // 路由配置接口
@@ -12,6 +13,7 @@ export interface IRouterConf {
 const routerConf: Array<IRouterConf> = []
 
 routerConf.push(user)
+routerConf.push(file)
 
 // 挂载路由中间件
 const routes = (app: Express) => {
