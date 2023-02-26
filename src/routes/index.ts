@@ -1,6 +1,8 @@
-import { Express, Router, Request, Response } from "express";
+import { Express, Router, Request, Response, NextFunction } from "express";
 import user from './user'
 import file from './file'
+import { Result } from "../common/Result";
+import { ResultCodeEnum, ResultMessageEnum } from "../enums/ResultEnums";
 
 
 // 路由配置接口
@@ -17,12 +19,13 @@ routerConf.push(file)
 
 // 挂载路由中间件
 const routes = (app: Express) => {
-    // 根目录
-    app.get('/', (req: Request, res: Response) => {
-        res.status(200).send('Hello express + ts')
-    })
-
+    // 挂载所有路由
     routerConf.forEach(conf => app.use(conf.path, conf.router))
+
+    // 兜底路由
+    app.use('/*', (req: Request, res: Response, next: NextFunction) => {
+        res.send(new Result(ResultCodeEnum.PAGE_NOT_FOUND, ResultMessageEnum.PAGE_NOT_FOUND.toString()))
+    })
 }
 
 export default routes

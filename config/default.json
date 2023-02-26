@@ -3,9 +3,14 @@
     "serviceName": "nacos's server name",
     "DEBUG": false,
     "env": "dev",
-    "ignorePath": [
-        "/favicon.ico"
-    ],
+    "dev": {
+        "host": "localhost",
+        "namespace": "web-admin-backend"
+    },
+    "prod": {
+        "host": "服务器IP",
+        "namespace": "web-admin-backend"
+    },
     "db_config": {
         "host": "localhost",
         "database": "bocchi_transfer",
