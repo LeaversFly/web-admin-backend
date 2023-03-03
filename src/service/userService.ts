@@ -8,3 +8,11 @@ export const getUserList = async () => {
 
     return result as Array<IUser>;
 }
+
+export const getUserById = async (id: string) => {
+    const sql = `select * from bt_user where id = ${id}`;
+
+    const result = await execute(sql);
+
+    return result as IUser;
+}
