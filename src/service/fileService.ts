@@ -8,3 +8,11 @@ export const getFileList = async () => {
 
     return result as Array<IFile[]>
 }
+
+export const getFileById = async (id: string) => {
+    const sql = `select * from bt_file where id = ${id}`
+
+    const result = await execute(sql)
+
+    return result as IFile
+}
