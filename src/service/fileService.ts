@@ -16,3 +16,11 @@ export const getFileById = async (id: string) => {
 
     return result as IFile
 }
+
+export const getValidFile = async () => {
+    const sql = 'select * from bt_file where validity = 1'
+
+    const result = await execute(sql)
+
+    return result as IFile[]
+}
