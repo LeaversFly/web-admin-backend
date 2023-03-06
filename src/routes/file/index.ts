@@ -3,7 +3,7 @@ import { IRouterConf } from '..'
 import { Result } from '../../common/Result'
 import { ResultCodeEnum, ResultMessageEnum } from '../../enums/ResultEnums'
 import IFile from '../../models/file'
-import { getFileById, getFileList, getValidFile } from '../../service/fileService'
+import { getFileById, getFileList, getFileListByUserId, getValidFile } from '../../service/fileService'
 
 const file = express.Router()
 
@@ -22,7 +22,10 @@ file.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
     res.send(new Result<IFile>(ResultCodeEnum.SUCCESS, ResultMessageEnum.SUCCESS.toString(), data))
 })
 
-
+file.get('/self/:id', async (req: Request, res: Response, next: NextFunction) => {
+    const data = await getFileListByUserId(req.params.id)
+    res.send(new Result<IFile[]>(ResultCodeEnum.SUCCESS, ResultMessageEnum.SUCCESS.toString(), data))
+})
 
 const routes: IRouterConf = {
     path: '/file',

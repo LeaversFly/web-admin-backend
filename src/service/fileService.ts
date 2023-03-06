@@ -24,3 +24,11 @@ export const getValidFile = async () => {
 
     return result as IFile[]
 }
+
+export const getFileListByUserId = async (id: string) => {
+    const sql = `select * from bt_file where user_id = ${id}`
+
+    const result = await execute(sql)
+
+    return result as IFile[]
+}
