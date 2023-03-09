@@ -9,6 +9,14 @@ export const getFileList = async () => {
     return result as Array<IFile[]>
 }
 
+export async function getFileCount() {
+    const sql = 'select count(id) from bt_file'
+
+    const result = await execute(sql)
+
+    return result as number
+}
+
 export const getFileById = async (id: string) => {
     const sql = `select * from bt_file where id = ${id}`
 
