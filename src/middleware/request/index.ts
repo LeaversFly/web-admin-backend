@@ -14,6 +14,9 @@ const limiter = rateLimit({
 
 const requestHandle = (app: Express) => {
     log.info('requestHandle init')
+    
+    // cors 配置
+    app.all('*', responseHeader)
 
     // 解析application/json
     app.use(express.json())
@@ -23,9 +26,6 @@ const requestHandle = (app: Express) => {
 
     // 所有接口限制请求次数
     app.use(limiter)
-
-    // cors 配置
-    app.all('*', responseHeader)
 }
 
 export default requestHandle

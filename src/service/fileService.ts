@@ -14,7 +14,7 @@ export async function getFileCount() {
 
     const result = await execute(sql)
 
-    return result as number
+    return result[0]['count(id)'] as number
 }
 
 export const getFileById = async (id: string) => {

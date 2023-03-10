@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
+import log from '../../utils/log';
 
 const responseHeader = (req: Request, res: Response, next: NextFunction) => {
     const { origin, Origin, referer, Referer } = req.headers;
@@ -7,7 +8,7 @@ const responseHeader = (req: Request, res: Response, next: NextFunction) => {
     const allowOrigin = origin || Origin || referer || Referer || '*';
 
     // 允许请求源
-    res.header('Access-Control-Allow-Origin', allowOrigin);
+    res.header('Access-Control-Allow-Origin', '*');
     // 允许头部字段
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     // 允许公开的头部字段
