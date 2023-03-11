@@ -1,7 +1,7 @@
 import execute from "../utils/db"
 import IFile from "../models/file"
 
-export const getFileList = async () => {
+export async function getFileList() {
     const sql = 'select * from bt_file'
 
     const result = await execute(sql)
@@ -10,14 +10,14 @@ export const getFileList = async () => {
 }
 
 export async function getFileCount() {
-    const sql = 'select count(id) from bt_file'
+    const sql = 'select count(*) from bt_file'
 
     const result = await execute(sql)
 
-    return result[0]['count(id)'] as number
+    return result[0]['count(*)'] as number
 }
 
-export const getFileById = async (id: string) => {
+export async function getFileById(id: string) {
     const sql = `select * from bt_file where id = ${id}`
 
     const result = await execute(sql)
@@ -25,7 +25,7 @@ export const getFileById = async (id: string) => {
     return result as IFile
 }
 
-export const getValidFile = async () => {
+export async function getValidFile() {
     const sql = 'select * from bt_file where validity = 1'
 
     const result = await execute(sql)
@@ -33,7 +33,15 @@ export const getValidFile = async () => {
     return result as IFile[]
 }
 
-export const getFileListByUserId = async (id: string) => {
+export async function getValidFileCount() {
+    const sql = 'select count(*) from bt_file where validity = 1'
+
+    const result = await execute(sql)
+
+    return result[0]['count(*)'] as number
+}
+
+export async function getFileListByUserId(id: string) {
     const sql = `select * from bt_file where user_id = ${id}`
 
     const result = await execute(sql)
