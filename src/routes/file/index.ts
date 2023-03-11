@@ -3,7 +3,7 @@ import { IRouterConf } from '..'
 import { Result } from '../../common/Result'
 import { ResultCodeEnum, ResultMessageEnum } from '../../enums/ResultEnums'
 import IFile from '../../models/file'
-import { getFileById, getFileCount, getFileList, getFileListByUserId, getValidFile, getValidFileCount } from '../../service/fileService'
+import { getFileById, getFileCount, getFileList, getFileListByUserId, getValidFile, getValidFileCount, getYesterdayCount } from '../../service/fileService'
 
 const file = express.Router()
 
@@ -27,6 +27,11 @@ file.get('/valid/count', async (req: Request, res: Response, next: NextFunction)
     res.send(new Result<number>(ResultCodeEnum.SUCCESS, ResultMessageEnum.SUCCESS.toString(), data))
 })
 
+file.get('/yesterday', async (req: Request, res: Response, next: NextFunction) => {
+    const data = await getYesterdayCount()
+    res.send(new Result<number>(ResultCodeEnum.SUCCESS, ResultMessageEnum.SUCCESS.toString(), data))
+})
+
 file.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
     const data = await getFileById(req.params.id)
     res.send(new Result<IFile>(ResultCodeEnum.SUCCESS, ResultMessageEnum.SUCCESS.toString(), data))
@@ -36,6 +41,7 @@ file.get('/self/:id', async (req: Request, res: Response, next: NextFunction) =>
     const data = await getFileListByUserId(req.params.id)
     res.send(new Result<IFile[]>(ResultCodeEnum.SUCCESS, ResultMessageEnum.SUCCESS.toString(), data))
 })
+
 
 const routes: IRouterConf = {
     path: '/file',

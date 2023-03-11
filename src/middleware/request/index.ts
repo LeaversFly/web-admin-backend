@@ -13,8 +13,6 @@ const limiter = rateLimit({
 })
 
 const requestHandle = (app: Express) => {
-    log.info('requestHandle init')
-    
     // cors 配置
     app.all('*', responseHeader)
 

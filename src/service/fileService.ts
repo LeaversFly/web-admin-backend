@@ -48,3 +48,11 @@ export async function getFileListByUserId(id: string) {
 
     return result as IFile[]
 }
+
+export async function getYesterdayCount() {
+    const sql = 'select count(*) from bt_file where to_days(CURDATE()) - to_days(send_time) <= 1'
+
+    const result = await execute(sql)
+
+    return result[0]['count(*)'] as number
+}
