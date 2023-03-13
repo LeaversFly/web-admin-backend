@@ -1,5 +1,6 @@
 import execute from "../utils/db"
 import IFile from "../models/file"
+import dayjs from "dayjs"
 
 export async function getFileList() {
     const sql = 'select * from bt_file'
@@ -55,4 +56,17 @@ export async function getYesterdayCount() {
     const result = await execute(sql)
 
     return result[0]['count(*)'] as number
+}
+
+export async function get8DaysFileCount() {
+    let result = []
+
+    for (let i = 0; i <= 7; i++) {
+        const sql = `select count(*) from bt_file where to_days(CURDATE()) - to_days(send_time) <= ${i}`
+
+        // temp[0]['x'] = dayjs().day(i).format('YYYY-MM-DD'),
+        result.push(execute(sql))
+    }
+
+    return result as object[]
 }
