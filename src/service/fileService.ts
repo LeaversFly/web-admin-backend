@@ -2,6 +2,7 @@ import execute from "../utils/db"
 import IFile from "../models/file"
 import dayjs from "dayjs"
 import utc from 'dayjs/plugin/utc'
+import log from "../utils/log"
 
 dayjs.extend(utc)
 
@@ -64,18 +65,17 @@ export async function getYesterdayCount() {
 export async function get8DaysFileCount() {
     let result = []
 
-    for (let i = 0; i <= 7; i++) {
-        const sql = `select count(*) as y,send_time as x  from bt_file where
+    for (let i = 1; i <= 7; i++) {
+        const sql = `select count(*) as y from bt_file where
                         to_days(CURDATE()) - to_days(send_time) <= ${i} and
-                        ${i >= 1 ? i - 1 : 0} <= to_days(CURDATE()) - to_days(send_time) `
+                        ${i - 1} <= to_days(CURDATE()) - to_days(send_time) `
 
         const res = await execute(sql)
 
-        if (res[0]['x']) {
-            res[0]['x'] = dayjs.utc(res[0]['x']).format('YYYY-MM-DD')
-        }
+        res[0]['x'] = dayjs().subtract(i, 'day').format('YYYY-MM-DD')
 
         result.push(res[0])
     }
+
     return result as object[]
 }
