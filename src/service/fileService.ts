@@ -65,10 +65,10 @@ export async function getYesterdayCount() {
 export async function get8DaysFileCount() {
     let result = []
 
-    for (let i = 1; i <= 7; i++) {
+    for (let i = 7; i >= 1; i--) {
         const sql = `select count(*) as y from bt_file where
                         to_days(CURDATE()) - to_days(send_time) <= ${i} and
-                        ${i - 1} <= to_days(CURDATE()) - to_days(send_time) `
+                        ${i - 1} <= to_days(CURDATE()) - to_days(send_time);`
 
         const res = await execute(sql)
 
