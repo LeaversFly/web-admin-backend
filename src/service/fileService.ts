@@ -2,12 +2,11 @@ import execute from "../utils/db"
 import IFile from "../models/file"
 import dayjs from "dayjs"
 import utc from 'dayjs/plugin/utc'
-import log from "../utils/log"
 
 dayjs.extend(utc)
 
 export async function getFileList() {
-    const sql = 'select * from bt_file'
+    const sql = 'select * from bt_file order by id desc limit 10'
 
     const result = await execute(sql)
 
