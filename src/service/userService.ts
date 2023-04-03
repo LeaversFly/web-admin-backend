@@ -17,10 +17,18 @@ export async function getUserCount() {
     return result[0]['count(*)'] as number
 }
 
-export const getUserById = async (id: string) => {
+export async function getUserById(id: string) {
     const sql = `select * from bt_user where id = ${id}`;
 
     const result = await execute(sql);
 
     return result as IUser;
+}
+
+export async function updateRemainById(id: string, remain: string) {
+    const sql = `update bt_user set remain = ${remain} where id = ${id}`;
+
+    const result = await execute(sql)
+
+    return true
 }
