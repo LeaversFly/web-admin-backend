@@ -6,7 +6,8 @@ import utc from 'dayjs/plugin/utc'
 dayjs.extend(utc)
 
 export async function getFileList() {
-    const sql = 'select * from bt_file order by id desc limit 10'
+    // const sql = 'select * from bt_file order by id desc limit 10'
+    const sql = 'select * from bt_file'
 
     const result = await execute(sql)
 
