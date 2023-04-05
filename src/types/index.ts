@@ -8,3 +8,9 @@ export interface IDBConfig {
     port: number,
     connectionLimit: number
 }
+
+export interface IPage {
+    pageNum: number,
+    pageSize: number,
+    pageCount: number,
+}

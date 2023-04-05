@@ -2,12 +2,17 @@ import execute from "../utils/db"
 import IFile from "../models/file"
 import dayjs from "dayjs"
 import utc from 'dayjs/plugin/utc'
+import { IPage } from '../types'
 
 dayjs.extend(utc)
 
-export async function getFileList() {
+export async function getFileList(query: any) {
     // const sql = 'select * from bt_file order by id desc limit 10'
-    const sql = 'select * from bt_file'
+    const { pageNum, pageSize }: IPage = query
+
+    const sql = `select * from bt_file 
+    order by id desc 
+    limit ${(pageNum - 1) * pageSize},${pageNum * pageSize}`
 
     const result = await execute(sql)
 
@@ -23,7 +28,7 @@ export async function getFileCount() {
 }
 
 export async function getFileById(id: string) {
-    const sql = `select * from bt_file where id = ${id}`
+    const sql = `select * from bt_file where id = ${id} `
 
     const result = await execute(sql)
 
@@ -47,7 +52,7 @@ export async function getValidFileCount() {
 }
 
 export async function getFileListByUserId(id: string) {
-    const sql = `select * from bt_file where user_id = ${id}`
+    const sql = `select * from bt_file where user_id = ${id} `
 
     const result = await execute(sql)
 
@@ -67,8 +72,8 @@ export async function get8DaysFileCount() {
 
     for (let i = 7; i >= 1; i--) {
         const sql = `select count(*) as y from bt_file where
-                        to_days(CURDATE()) - to_days(send_time) <= ${i} and
-                        ${i - 1} <= to_days(CURDATE()) - to_days(send_time);`
+to_days(CURDATE()) - to_days(send_time) <= ${i} and
+                        ${i - 1} <= to_days(CURDATE()) - to_days(send_time); `
 
         const res = await execute(sql)
 

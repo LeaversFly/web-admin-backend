@@ -8,7 +8,7 @@ import { get8DaysFileCount, getFileById, getFileCount, getFileList, getFileListB
 const file = express.Router()
 
 file.get('/all', async (req: Request, res: Response, next: NextFunction) => {
-    const data = await getFileList()
+    const data = await getFileList(req.query)
     res.send(new Result<IFile[]>(ResultCodeEnum.SUCCESS, ResultMessageEnum.SUCCESS.toString(), data))
 })
 
