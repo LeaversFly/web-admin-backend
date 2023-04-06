@@ -3,7 +3,7 @@ import { IRouterConf } from '..'
 import { Result } from '../../common/Result'
 import { ResultCodeEnum, ResultMessageEnum } from '../../enums/ResultEnums'
 import IFile from '../../models/file'
-import { get8DaysFileCount, getFileById, getFileCount, getFileList, getFileListByUserId, getValidFile, getValidFileCount, getYesterdayCount } from '../../service/fileService'
+import { get8DaysFileCount, getFileById, getFileSum, getFileList, getFileListByUserId, getValidFile, getValidFileCount, getYesterdayCount } from '../../service/fileService'
 
 const file = express.Router()
 
@@ -12,8 +12,8 @@ file.get('/all', async (req: Request, res: Response, next: NextFunction) => {
     res.send(new Result<IFile[]>(ResultCodeEnum.SUCCESS, ResultMessageEnum.SUCCESS.toString(), data))
 })
 
-file.get('/count', async (req: Request, res: Response, next: NextFunction) => {
-    const data = await getFileCount()
+file.get('/sum', async (req: Request, res: Response, next: NextFunction) => {
+    const data = await getFileSum()
     res.send(new Result<number>(ResultCodeEnum.SUCCESS, ResultMessageEnum.SUCCESS.toString(), data))
 })
 

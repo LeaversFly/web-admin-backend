@@ -7,19 +7,18 @@ import { IPage } from '../types'
 dayjs.extend(utc)
 
 export async function getFileList(query: any) {
-    // const sql = 'select * from bt_file order by id desc limit 10'
     const { pageNum, pageSize }: IPage = query
 
     const sql = `select * from bt_file 
     order by id desc 
-    limit ${(pageNum - 1) * pageSize},${pageNum * pageSize}`
+    limit ${(pageNum - 1) * pageSize},${pageSize}`
 
     const result = await execute(sql)
 
     return result as Array<IFile[]>
 }
 
-export async function getFileCount() {
+export async function getFileSum() {
     const sql = 'select count(*) from bt_file'
 
     const result = await execute(sql)
