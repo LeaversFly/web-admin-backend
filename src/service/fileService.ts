@@ -13,7 +13,14 @@ export async function getFileList(query: any) {
     order by id desc 
     limit ${(pageNum - 1) * pageSize},${pageSize}`
 
-    const result = await execute(sql)
+    let result = await execute(sql)
+
+    result = result.map((item: IFile) => {
+        item.send_time = dayjs(item.send_time).format('YYYY-MM-DD HH:MM:ss')
+        return item
+    })
+
+    console.log(result);
 
     return result as Array<IFile[]>
 }

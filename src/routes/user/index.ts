@@ -3,17 +3,17 @@ import { IRouterConf } from '..'
 import { Result } from '../../common/Result'
 import { ResultCodeEnum, ResultMessageEnum } from '../../enums/ResultEnums'
 import IUser from '../../models/user'
-import { getUserById, getUserCount, getUserList, updateRemainById } from '../../service/userService'
+import { getUserById, getUserSum, getUserList, updateRemainById } from '../../service/userService'
 
 const user = express.Router()
 
 user.get('/all', async (req: Request, res: Response, next: NextFunction) => {
-    const data = await getUserList()
+    const data = await getUserList(req.query)
     res.send(new Result<IUser[]>(ResultCodeEnum.SUCCESS, ResultMessageEnum.SUCCESS.toString(), data))
 })
 
-user.get('/all/count', async (req: Request, res: Response, next: NextFunction) => {
-    const data = await getUserCount()
+user.get('/sum', async (req: Request, res: Response, next: NextFunction) => {
+    const data = await getUserSum()
     res.send(new Result<number>(ResultCodeEnum.SUCCESS, ResultMessageEnum.SUCCESS.toString(), data))
 })
 

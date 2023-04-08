@@ -1,15 +1,20 @@
 import IUser from "../models/user";
+import { IPage } from "../types";
 import execute from "../utils/db";
 
-export async function getUserList() {
-    const sql = 'select * from bt_user';
+export async function getUserList(query: any) {
+    const { pageNum, pageSize }: IPage = query
+
+    const sql = `select * from bt_user 
+    order by id desc 
+    limit ${(pageNum - 1) * pageSize},${pageSize}`
 
     const result = await execute(sql);
 
     return result as Array<IUser>;
 }
 
-export async function getUserCount() {
+export async function getUserSum() {
     const sql = 'select count(*) from bt_user'
 
     const result = await execute(sql)
