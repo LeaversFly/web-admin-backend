@@ -1,7 +1,6 @@
 import rateLimit from 'express-rate-limit'
 import { Express } from 'express'
 import express from 'express'
-import log from '../../utils/log'
 import responseHeader from './requestHeader'
 
 const limiter = rateLimit({

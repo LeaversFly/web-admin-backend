@@ -9,6 +9,7 @@ export interface IDBConfig {
     connectionLimit: number
 }
 
+// 分页参数接口
 export interface IPage {
     pageNum: number,
     pageSize: number,
