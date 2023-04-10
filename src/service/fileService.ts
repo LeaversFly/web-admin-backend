@@ -3,6 +3,7 @@ import IFile from "../models/file"
 import dayjs from "dayjs"
 import utc from 'dayjs/plugin/utc'
 import { IPage } from '../types'
+import fs from 'fs'
 
 dayjs.extend(utc)
 
@@ -89,4 +90,23 @@ to_days(CURDATE()) - to_days(send_time) <= ${i} and
     }
 
     return result as object[]
+}
+
+export async function deleteAllFiles() {
+    const root = 'C:\\Users\\廖飞\\IdeaProjects\\bocchi-transfer\\src\\main\\resources\\static'
+
+    const dir = fs.readdirSync(root)
+
+    dir.forEach(folder => {
+        const files = fs.readdirSync(root + '\\' + folder)
+        if (files.length !== 0) {
+            files.forEach(item => {
+                if (item !== '天翼网盘下载.txt') {
+                    fs.unlinkSync(root + '\\' + folder + '\\' + item)
+                }
+            })
+        }
+    })
+
+    return true
 }

@@ -3,7 +3,7 @@ import { IRouterConf } from '..'
 import { Result } from '../../common/Result'
 import { ResultCodeEnum, ResultMessageEnum } from '../../enums/ResultEnums'
 import IFile from '../../models/file'
-import { get8DaysFileCount, getFileById, getFileSum, getFileList, getFileListByUserId, getValidFile, getValidFileCount, getYesterdayCount } from '../../service/fileService'
+import { get8DaysFileCount, getFileById, getFileSum, getFileList, getFileListByUserId, getValidFile, getValidFileCount, getYesterdayCount, deleteAllFiles } from '../../service/fileService'
 
 const file = express.Router()
 
@@ -35,6 +35,11 @@ file.get('/yesterday', async (req: Request, res: Response, next: NextFunction) =
 file.get('/8DaysCount', async (req: Request, res: Response, next: NextFunction) => {
     const data = await get8DaysFileCount()
     res.send(new Result<number>(ResultCodeEnum.SUCCESS, ResultMessageEnum.SUCCESS.toString(), data))
+})
+
+file.delete('/clear', async (req: Request, res: Response, next: NextFunction) => {
+    const data = await deleteAllFiles()
+    res.send(new Result<boolean>(ResultCodeEnum.SUCCESS, ResultMessageEnum.SUCCESS.toString(), data))
 })
 
 file.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
