@@ -21,8 +21,6 @@ export async function getFileList(query: any) {
         return item
     })
 
-    console.log(result);
-
     return result as Array<IFile[]>
 }
 

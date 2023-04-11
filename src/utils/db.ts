@@ -1,9 +1,11 @@
 import Utils from "./Utils";
 const mysql = require("mysql2");
 
+const ENV = Utils.getInstance().getConfig<boolean>('env')
 const config = Utils.getInstance().getConfig<object>("db_config") as object;
+const dbConfig = config[`${ENV}`]
 
-const pool = mysql.createPool(config);
+const pool = mysql.createPool(dbConfig);
 
 const execute = (sql: string) => {
     return new Promise<any>((resolve, reject) => {
